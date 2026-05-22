@@ -7,14 +7,23 @@ This project is organized by Taylor's University as part of the Tourism Integrat
 - **SDG 13:** Climate Action
 
 ## Features
-- **Live Pledge Counter:** Polls a Firebase Realtime Database and updates dynamically.
+- **Live Pledge Counter:** Polls a Supabase table and updates dynamically.
 - **Pledge Form:** Validation with inline error messages and check-agreement before submitting.
-- **Admin Dashboard:** Passcode protected dashboard featuring total metrics, search capability, and CSV export.
+- **Admin Dashboard:** Hidden from the public page and available directly at `/admin`, with total metrics, search capability, and CSV export.
 - **Integrated QR Code:** Automatically generates a QR code linking to the live URL.
 - **Ocean & Coastal Design:** Multi-layered animated waves, floating foam particles, and responsive layout.
 
 ## Technologies Used
 - HTML5 / CSS3 / Vanilla JavaScript
-- Firebase Realtime Database (via CDN REST API)
+- Supabase REST API
 - QRCode.js (via CDN)
 - Playfair Display & Inter Fonts (Google Fonts)
+
+## Supabase Setup
+1. Run `supabase/migrations/20260522000000_create_pledges.sql` in your Supabase project.
+2. In `index.html`, replace:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+3. Deploy the static site. The public page has no admin button; the dashboard is available at `/admin`.
+
+The included Row Level Security policies allow anonymous inserts and reads because this is a static browser-only site. The client-side admin password hides the dashboard route from casual users, but it is not a real security boundary for private data.

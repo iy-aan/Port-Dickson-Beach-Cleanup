@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin · Responsible Tourist Pledge</title>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const base = window.location.pathname.replace(/admin\/?$/, "");
+    params.set("view", "admin");
+    window.location.replace(`${base}?${params.toString()}${window.location.hash}`);
+  </script>
+</body>
+</html>
