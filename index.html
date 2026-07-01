@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Responsible Tourist Pledge · Sekinchan Beach Cleanup 2026</title>
-<meta name="description" content="Take the Responsible Tourist Pledge for the Sekinchan Beach Cleanup on 11 July 2026. A Taylor's University Tourism Integrated Project supporting SDG 14 & SDG 13." />
+<meta name="description" content="Take the Responsible Tourist Pledge for the Sekinchan Beach Cleanup on 11 July 2026. A Taylor's University Tourism Integrated Project supporting SDG 14, SDG 13 & SDG 12." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -143,6 +143,7 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
     margin:8px 0 0;
     font-variant-numeric:tabular-nums;
+    white-space:nowrap;
   }
   .counter-label{color:#a9c2db;font-size:14px;letter-spacing:.15em;text-transform:uppercase;margin-top:18px}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
@@ -155,6 +156,7 @@
   }
   .sdg-pill.teal{border-color:rgba(29,158,117,.5);background:rgba(29,158,117,.12);color:#a9ecd0}
   .sdg-pill.blue{border-color:rgba(96,165,250,.45);background:rgba(96,165,250,.10);color:#bcd6f5}
+  .sdg-pill.gold{border-color:rgba(217,164,65,.5);background:rgba(217,164,65,.12);color:#f0d9a8}
   .sdg-pill svg{width:14px;height:14px;fill:none;stroke-width:2}
 
   /* ============ Waves ============ */
@@ -257,6 +259,7 @@
     background:linear-gradient(180deg,#fff,#7fd6b6);
     -webkit-background-clip:text;background-clip:text;color:transparent;
     margin:12px 0 8px;font-variant-numeric:tabular-nums;
+    white-space:nowrap;
   }
   .ty-wrap h2{font-size:clamp(28px,4vw,42px);margin:24px 0 12px}
   .ty-wrap p{color:#bcd3eb;max-width:560px;margin:0 auto 28px}
@@ -537,6 +540,19 @@ function siteFooter(){
 /* =========================================================
    COUNT-UP ANIMATION
    ========================================================= */
+// Shrinks a number node's font-size until its text fits within its own box,
+// so counts with more digits (e.g. moving from 3 to 4+ digits) never clip.
+function fitNumber(node, min=32){
+  node.style.fontSize = "";
+  const max = parseFloat(getComputedStyle(node).fontSize);
+  let size = max;
+  node.style.fontSize = size + "px";
+  while(node.scrollWidth > node.clientWidth + 1 && size > min){
+    size -= 2;
+    node.style.fontSize = size + "px";
+  }
+}
+
 function animateCount(node, from, to, ms=1200){
   const start = performance.now();
   function tick(now){
@@ -544,10 +560,15 @@ function animateCount(node, from, to, ms=1200){
     const eased = 1 - Math.pow(1-t,3);
     const val = Math.round(from + (to-from)*eased);
     node.textContent = val.toLocaleString();
+    fitNumber(node);
     if(t<1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
+
+window.addEventListener("resize", () => {
+  document.querySelectorAll("#bigCount, #tyCount").forEach(n => fitNumber(n));
+});
 
 /* =========================================================
    VIEWS
@@ -584,6 +605,10 @@ views.main = () => {
             <span class="sdg-pill blue">
               <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
               SDG 13 — Climate Action
+            </span>
+            <span class="sdg-pill gold">
+              <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M21 12a9 9 0 1 1-3-6.7M21 3v6h-6"/></svg>
+              SDG 12 — Responsible Consumption
             </span>
           </div>
         </div>

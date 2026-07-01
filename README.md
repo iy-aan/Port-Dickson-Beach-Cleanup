@@ -5,6 +5,7 @@ A beautiful, single-page website for the **Responsible Tourist Pledge** campaign
 This project is organized by Taylor's University as part of the Tourism Integrated Project, supporting:
 - **SDG 14:** Life Below Water
 - **SDG 13:** Climate Action
+- **SDG 12:** Responsible Consumption and Production
 
 ## Features
 - **Live Pledge Counter:** Polls a Supabase table and updates dynamically.
